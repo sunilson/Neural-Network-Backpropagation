@@ -2,9 +2,9 @@
 
 Small neural network I created after a few tutorials. It can have n amount layers and nodes per layer. It has tanh, sigmoid and relu as activation and output functions. Success rate with the MINST training data is around 96 to 97 percent. EMINST hovers around 75 to 80, but I am sure it could be optimized to get more.
 
-Also hosted on very simple python REST Heroku server for testing with Android app. It expects a black on white image of a character. Server removes transparent background, crops image to a quadratic format and resizes it. Also all values get normalized/scaled for the network. The POST URL is: <TODO>
+Also hosted on very simple python REST Heroku server for testing with Android app. It expects a black on white image of a character. Server removes transparent background, crops image to a quadratic format and resizes it. Also all values get normalized/scaled for the network. The POST URL is: https://char-recognization.herokuapp.com/
 
-Android app allows the user to draw a single character and let's the REST API guess what character it is. Download the debug APK here: https://www.file-upload.net/download-13058794/app-debug.apk.html
+Android app allows the user to draw a single character and let's the REST API guess what character it is. Download the debug APK here: https://www.file-upload.net/download-13058921/app-debug.apk.html
   
 Screenshot:
 
