@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, '../library/')
+#sys.path.insert(0, '../library/')
 from flask import Flask, redirect, url_for, request, jsonify
 from werkzeug.datastructures import ImmutableMultiDict
 from werkzeug.utils import secure_filename
@@ -27,7 +27,7 @@ def scaleData(dataArray):
 
 
 def mapResult(output):
-    file = open("../tests/data/emnist/emnist-digits-mapping.txt",
+    file = open("./emnist-digits-mapping.txt",
                 "r").read().splitlines()
     map = []
     list = [name.split() for name in file if name]
@@ -52,9 +52,10 @@ def queryNetwork():
     '''
     file = request.files["image"]
     filename = secure_filename(file.filename)
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        os.makedirs(app.config['UPLOAD_FOLDER'])
     file.save(os.path.join(
         app.config['UPLOAD_FOLDER'], filename))
-
     image = ImageForNetwork(os.path.join(
         app.config['UPLOAD_FOLDER'], filename))
     image.process()
@@ -134,10 +135,8 @@ class ImageForNetwork:
         # PLACE CROPPED 20x20 IMAGE IN 28x28
         temp_image.paste(self.image, ((4 + widthOffset, 4 + heightOffset)))
         self.image = temp_image
-        self.image.save("./processing_images/guess" +
-                        str(time.time()) + ".png")
         return self
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run()

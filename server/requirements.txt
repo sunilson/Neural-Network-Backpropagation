@@ -1,0 +1,6 @@
+numpy==1.14.2
+Werkzeug==0.14.1
+scipy==1.0.1
+Flask==0.12.2
+Pillow==5.0.0
+gunicorn==19.7.1

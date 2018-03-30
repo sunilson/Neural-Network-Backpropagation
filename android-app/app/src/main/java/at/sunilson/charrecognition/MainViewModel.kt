@@ -38,7 +38,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val app : Application = application
     val gson = GsonBuilder().setLenient().create()
-    val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:5000").addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build().create(RetrofitService::class.java)
+    val retrofit = Retrofit.Builder().baseUrl("https://char-recognization.herokuapp.com/").addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build().create(RetrofitService::class.java)
 
     override fun onCleared() {
         super.onCleared()
