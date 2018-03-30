@@ -4,7 +4,11 @@ Small neural network I created after a few tutorials. It can have n amount layer
 
 Also hosted on very simple python REST Heroku server for testing with Android app. It expects a black on white image of a character. Server removes transparent background, crops image to a quadratic format and resizes it. Also all values get normalized/scaled for the network. The POST URL is: <TODO>
 
-Android app allows the user to draw a single character and let's the REST API guess what character it is. Download the APK here: <TODO>
+Android app allows the user to draw a single character and let's the REST API guess what character it is. Download the debug APK here: https://www.file-upload.net/download-13058794/app-debug.apk.html
+  
+Screenshot:
+
+<img width="200" src="https://i.imgur.com/Hk4QCaR.png">
 
 Good materials:
 
