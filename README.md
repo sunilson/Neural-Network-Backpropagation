@@ -10,6 +10,10 @@ Screenshot:
 
 <img width="200" src="https://i.imgur.com/Hk4QCaR.png">
 
+Processed image on server (trimmed whitespace, inverted, scaled to 20x20 box, put in 28x28 background):
+
+<img width="200" src="https://i.imgur.com/XPtjHDP.png">
+
 Good materials:
 
 <ul>
