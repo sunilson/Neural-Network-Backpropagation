@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Environment
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.reactivex.Observable
@@ -37,7 +38,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val app : Application = application
     val gson = GsonBuilder().setLenient().create()
-    val retrofit = Retrofit.Builder().baseUrl("http://172.16.0.230:5000").addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build().create(RetrofitService::class.java)
+    val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:5000").addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build().create(RetrofitService::class.java)
 
     override fun onCleared() {
         super.onCleared()
@@ -50,7 +51,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val body: MultipartBody.Part = MultipartBody.Part.createFormData("image", it.name, reqFile)
             val requestBody: RequestBody = RequestBody.create(MultipartBody.FORM, "upload_test")
             retrofit.charRecognition(body, requestBody).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).map {
-                'b'
+                it.string().single()
             }
         }
     }

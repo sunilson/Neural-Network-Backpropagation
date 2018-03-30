@@ -34,23 +34,23 @@ class MainActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(this,
                         arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
             } else {
-                val progressDialog = ProgressDialog(this)
+                val progressDialog = ProgressDialog(this, R.style.AppCompatAlertDialogStyle)
                 progressDialog.setCancelable(false)
                 progressDialog.setTitle("Getting prediction")
                 progressDialog.setMessage("Loading...")
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+                progressDialog.isIndeterminate = true
                 progressDialog.show()
                 composite.add(viewModel.recognizeChar(ink_view.bitmap).subscribeWith(object : DisposableObserver<Char>() {
                     override fun onComplete() {
                     }
 
                     override fun onNext(t: Char) {
-                        Log.d("Linus", t.toString())
+                        Toast.makeText(this@MainActivity, "Guessed the digit " + t, Toast.LENGTH_LONG).show()
                         progressDialog.hide()
                     }
 
                     override fun onError(e: Throwable) {
-                        Log.d("Linus", e.toString())
                         Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
                         progressDialog.hide()
                     }
