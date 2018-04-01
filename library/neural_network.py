@@ -173,68 +173,8 @@ class NeuralNetwork:
     def storeResult(self):
         ''' Store weights, configuration in csv file '''
 
-        # TODO: STORE BIAS
-
-        script_dir = os.path.dirname(__file__)
-        filename = "./nn_results.csv"
-        path = os.path.join(script_dir, filename)
-
-        with open(path, 'w', newline="") as csvfile:
-            filewriter = csv.writer(csvfile, delimiter=',',
-                                    quoting=csv.QUOTE_NONNUMERIC)
-            configuration_array = []
-            for node in self.nodes:
-                configuration_array.append(node)
-            filewriter.writerow(configuration_array)
-            filewriter.writerow([str(self.learningRate)])
-            for weight_layer in self.weights:
-                result = []
-                for weight in weight_layer:
-                    for weight_element in weight:
-                        result.append(weight_element)
-                filewriter.writerow(result)
+        # TODO:
 
     def loadResult(self):
         ''' Load previous results and configure network '''
-
-        # TODO: LOAD BIAS
-
-        script_dir = os.path.dirname(__file__)
-        filename = "./nn_results.csv"
-        path = os.path.join(script_dir, filename)
-
-        # Check if file exists
-        result_file = Path(path)
-        if not result_file.is_file():
-            return
-
-        with open(path, 'r') as csvfile:
-            reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)
-            layercount = 0
-            for i, row in enumerate(reader):
-                if(i == 0):
-                    self.nodes = numpy.array(row).astype(int)
-                    self.layers = len(self.nodes)
-                    self.weights = []
-                elif(i == 1):
-                    self.learningRate = float(row[0])
-                else:
-                    layer = None
-                    if layercount == self.layers - 2:
-                        layer = numpy.zeros(
-                            (self.nodes[layercount+1], self.nodes[layercount] + 1))
-                        horizontalCounter = 0
-                        for j in range(self.nodes[layercount+1]):
-                            for k in range(self.nodes[layercount] + 1):
-                                layer[j][k] = row[horizontalCounter]
-                                horizontalCounter += 1
-                    else:
-                        layer = numpy.zeros(
-                            (self.nodes[layercount+1] + 1, self.nodes[layercount] + 1))
-                        horizontalCounter = 0
-                        for j in range(self.nodes[layercount+1] + 1):
-                            for k in range(self.nodes[layercount] + 1):
-                                layer[j][k] = row[horizontalCounter]
-                                horizontalCounter += 1
-                    self.weights.append(layer)
-                    layercount += 1
+        # TODO:
