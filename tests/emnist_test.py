@@ -54,7 +54,7 @@ def scaleData(dataArray):
 # TRAINING WITH EMINST DATASET
 
 
-def executeEminstTraining(nn, epoches, runs=-1, offset=-1, randomfactor=2):
+def executeEminstTraining(nn, epoches, runs=-1, offset=-1):
 
     # Shuffle CSV (doesnt work with full dataset)
     lines = open("./data/emnist/emnist-digits-train.csv", 'r').readlines()
@@ -67,8 +67,8 @@ def executeEminstTraining(nn, epoches, runs=-1, offset=-1, randomfactor=2):
         with open("./data/emnist/emnist-digits-train.csv", 'r') as csvfile:
             reader = csv.reader(csvfile)
             for j, row in enumerate(reader):
-                # Apply offset, randomization
-                if j < offset or (randomfactor != -1 and random.randint(0, 9) > randomfactor):
+                # Apply offset
+                if j < offset:
                     continue
                 # Stop if max runs is reached
                 if runs != -1 and j - offset > runs:
@@ -128,16 +128,15 @@ epochePerIteration = 1
 iterations = 5
 trainRunsPerEpoche = -1
 testRunsPerEpoche = -1
-networkConfig = [784, 600, 10]
-randomizeFactor = -1
+networkConfig = [784, 600, 100, 10]
 nn = NeuralNetwork(networkConfig, learningRate, activation_function=TanhActivationFunction(),
                    momentum_factor=momentum_factor)
 
 # Do training and testing for n iterations
-nn.loadResult()
+# nn.loadResult()
 for i in range(iterations):
     executeEminstTraining(nn, epochePerIteration,
-                          trainRunsPerEpoche, randomfactor=randomizeFactor)
+                          trainRunsPerEpoche)
     executeEminstTest(nn, testRunsPerEpoche)
 nn.storeResult()
 # Plot results
@@ -153,7 +152,7 @@ plt.show()
 # Store results
 text_file = open("Results.txt", "a")
 text_file.write(
-    f"\n\n Test results for {iterations} iterations with {epochePerIteration} epoches per iteration. There were {trainRunsPerEpoche} train runs and {testRunsPerEpoche} test runs per epoche. Learning rate is {learningRate}. Training randomization factor was {str(randomizeFactor)}. Momentum factor was {str(momentum_factor)}")
+    f"\n\n Test results for {iterations} iterations with {epochePerIteration} epoches per iteration. There were {trainRunsPerEpoche} train runs and {testRunsPerEpoche} test runs per epoche. Learning rate is {learningRate}. Momentum factor was {str(momentum_factor)}")
 text_file.write("\n The network config looked like this: ")
 text_file.write(' '.join(str(e) + " " for e in networkConfig))
 text_file.write("\n The test results were: ")

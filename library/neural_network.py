@@ -62,31 +62,27 @@ class NeuralNetwork:
         self.nodes = nodes
         self.layers = len(nodes)
         self.weights = []
+        self.biases = []
+        self.biases_momentum = []
         self.momentum = []
 
         # Create all network layers
         for i in range(1, self.layers):
-            # Initialize Layer weights (Output Weights x Input Weights for later matrix dot product for weighted sum). Add +1 for bias node (not for output layer)
-            if i == self.layers-1:
-                self.weights.append(numpy.random.normal(
-                    0.0, pow(self.nodes[i], -0.5), (self.nodes[i], self.nodes[i-1] + 1)))
-                self.momentum.append(numpy.zeros(
-                    (self.nodes[i], self.nodes[i-1] + 1)))
-            else:
-                self.weights.append(numpy.random.normal(
-                    0.0, pow(self.nodes[i], -0.5), (self.nodes[i] + 1, self.nodes[i-1] + 1)))
-                self.momentum.append(numpy.zeros(
-                    (self.nodes[i] + 1, self.nodes[i-1] + 1)))
+            # Initialize Layer weights (Output Weights x Input Weights for later matrix dot product for weighted sum).
+            self.weights.append(numpy.random.normal(
+                0.0, pow(self.nodes[i], -0.5), (self.nodes[i], self.nodes[i-1])))
+            # Initialize Momentum and Biases
+            self.momentum.append(numpy.zeros(
+                (self.nodes[i], self.nodes[i-1])))
+            self.biases_momentum.append(
+                numpy.zeros((self.nodes[i], 1)))
+            self.biases.append(numpy.ones((self.nodes[i], 1)))
 
     def train(self, inputs, targets):
         ''' Calculates inputs, compares with targets, and trains network '''
 
         originalInputs = numpy.array(inputs, ndmin=2).T
         inputs = numpy.array(inputs, ndmin=2).T
-        # Add bias node
-        originalInputs = numpy.append(originalInputs, [[1.0]], axis=0)
-        inputs = numpy.append(inputs, [[1.0]], axis=0)
-        #originalInputs = numpy.append(inputs, [[1.0]], axis=0)
         targets = numpy.array(targets, ndmin=2).T
         finalOutputs = []
 
@@ -94,14 +90,11 @@ class NeuralNetwork:
             if i == self.layers-2:
                 # Output Layer function
                 inputs = self.output_function.execute(
-                    numpy.dot(self.weights[i], inputs))
+                    numpy.dot(self.weights[i], inputs) + self.biases[i])
             else:
                 # Default activation on hidden layers
                 inputs = self.activation_function.execute(
-                    numpy.dot(self.weights[i], inputs))
-                if i != 0:
-                    # Add bias node
-                    inputs = numpy.append(inputs, [[1.0]], axis=0)
+                    numpy.dot(self.weights[i], inputs) + self.biases[i])
             finalOutputs.append(inputs)
 
         # Calculate errors
@@ -119,6 +112,7 @@ class NeuralNetwork:
         # Calculate Gradients --> Derivative of Error function in regards to specific weight
         # Dot product with transposed Output of previous node for weight adjustment
         weightDelta = 0
+        gradients = None
         for i in range(self.layers-2, -1, -1):
             # On last node use inputs instead of some outputs
             if i == 0:
@@ -144,8 +138,10 @@ class NeuralNetwork:
                                         numpy.transpose(finalOutputs[i-1]))
             # Add momentum
             self.weights[i] += (weightDelta + self.momentum[i])
+            self.biases[i] += (gradients + self.biases_momentum[i])
             # Apply new momentum
             self.momentum[i] = self.momentum_factor * weightDelta
+            self.biases_momentum[i] = self.momentum_factor * gradients
 
     def printSums(self):
         '''
@@ -177,6 +173,8 @@ class NeuralNetwork:
     def storeResult(self):
         ''' Store weights, configuration in csv file '''
 
+        # TODO: STORE BIAS
+
         script_dir = os.path.dirname(__file__)
         filename = "./nn_results.csv"
         path = os.path.join(script_dir, filename)
@@ -198,6 +196,8 @@ class NeuralNetwork:
 
     def loadResult(self):
         ''' Load previous results and configure network '''
+
+        # TODO: LOAD BIAS
 
         script_dir = os.path.dirname(__file__)
         filename = "./nn_results.csv"
