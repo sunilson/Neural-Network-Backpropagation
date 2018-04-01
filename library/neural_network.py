@@ -153,28 +153,40 @@ class NeuralNetwork:
         ''' Get output for input '''
 
         inputs = numpy.array(inputs, ndmin=2).T
-        # Add bias node
-        inputs = numpy.append(inputs, [[1.0]], axis=0)
 
         for i in range(0, self.layers-1):
             if i == self.layers-2:
                 # Output Layer function
                 inputs = self.output_function.execute(
-                    numpy.dot(self.weights[i], inputs))
+                    numpy.dot(self.weights[i], inputs) + self.biases[i])
             else:
                 # Default activation on hidden layers
                 inputs = self.activation_function.execute(
-                    numpy.dot(self.weights[i], inputs))
-                if i != 0:
-                    # Add bias node
-                    inputs = numpy.append(inputs, [[1.0]], axis=0)
+                    numpy.dot(self.weights[i], inputs) + self.biases[i])
         return inputs
 
     def storeResult(self):
         ''' Store weights, configuration in csv file '''
+        script_dir = os.path.dirname(__file__)
+        filenameWeights = "./nn_weights"
+        filenameBiases = "./nn_biases"
+        pathWeights = os.path.join(script_dir, filenameWeights)
+        pathBiases = os.path.join(script_dir, filenameBiases)
 
-        # TODO:
+        # Store weights
+        numpy.save(pathWeights, self.weights)
+        # Store biases
+        numpy.save(pathBiases, self.biases)
 
     def loadResult(self):
         ''' Load previous results and configure network '''
-        # TODO:
+        script_dir = os.path.dirname(__file__)
+        filenameWeights = "./nn_weights.npy"
+        filenameBiases = "./nn_biases.npy"
+        pathWeights = os.path.join(script_dir, filenameWeights)
+        pathBiases = os.path.join(script_dir, filenameBiases)
+
+        # Load weights
+        self.weights = numpy.load(pathWeights)
+        # Load biases
+        self.biases = numpy.load(pathBiases)

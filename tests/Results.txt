@@ -4,3 +4,38 @@
  The network config looked like this: 784  600  10 
  The test results were: 98.2025  98.6425  98.7  98.8575  98.85 
  The test errors were: 156.0  131.0  271.0  433.0  261.0  459.0  122.0  218.0  315.0  333.0 
+
+ Test results for 2 iterations with 1 epoches per iteration. There were 100 train runs and 100 test runs per epoche. Learning rate is 0.01. Momentum factor was 0.75
+ The network config looked like this: 784  600  100  10 
+ The test results were: 50.495049504950494  62.37623762376238 
+ The test errors were: 7.0  3.0  4.0  13.0  2.0  7.0  9.0  10.0  18.0  15.0 
+
+ Test results for 2 iterations with 1 epoches per iteration. There were 100 train runs and 100 test runs per epoche. Learning rate is 0.01. Momentum factor was 0.75
+ The network config looked like this: 784  600  100  10 
+ The test results were: 33.66336633663366  69.3069306930693 
+ The test errors were: 7.0  1.0  22.0  13.0  2.0  11.0  0.0  7.0  13.0  22.0 
+
+ Test results for 2 iterations with 1 epoches per iteration. There were 100 train runs and 100 test runs per epoche. Learning rate is 0.01. Momentum factor was 0.75
+ The network config looked like this: 784  600  100  10 
+ The test results were: 45.54455445544554  72.27722772277227 
+ The test errors were: 5.0  9.0  9.0  4.0  13.0  8.0  6.0  10.0  16.0  3.0 
+
+ Test results for 2 iterations with 1 epoches per iteration. There were 100 train runs and 100 test runs per epoche. Learning rate is 0.01. Momentum factor was 0.75
+ The network config looked like this: 784  600  100  10 
+ The test results were: 44.55445544554455  60.396039603960396 
+ The test errors were: 3.0  3.0  16.0  19.0  6.0  10.0  6.0  3.0  13.0  17.0 
+
+ Test results for 2 iterations with 1 epoches per iteration. There were 100 train runs and 100 test runs per epoche. Learning rate is 0.01. Momentum factor was 0.75
+ The network config looked like this: 784  600  100  10 
+ The test results were: 22.772277227722768  63.366336633663366 
+ The test errors were: 9.0  16.0  15.0  7.0  8.0  16.0  5.0  12.0  19.0  8.0 
+
+ Test results for 2 iterations with 1 epoches per iteration. There were 100 train runs and 100 test runs per epoche. Learning rate is 0.01. Momentum factor was 0.75
+ The network config looked like this: 784  600  100  10 
+ The test results were: 18.811881188118804  36.633663366336634 
+ The test errors were: 9.0  10.0  14.0  18.0  9.0  3.0  12.0  20.0  29.0  22.0 
+
+ Test results for 2 iterations with 1 epoches per iteration. There were 100 train runs and 100 test runs per epoche. Learning rate is 0.01. Momentum factor was 0.75
+ The network config looked like this: 784  600  100  10 
+ The test results were: 67.32673267326732  73.26732673267327 
+ The test errors were: 1.0  0.0  15.0  7.0  6.0  11.0  3.0  8.0  7.0  2.0 

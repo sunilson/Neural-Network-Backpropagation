@@ -125,15 +125,15 @@ def executeEminstTest(nn, runs=-1):
 learningRate = 0.01
 momentum_factor = 0.75
 epochePerIteration = 1
-iterations = 5
-trainRunsPerEpoche = -1
-testRunsPerEpoche = -1
+iterations = 2
+trainRunsPerEpoche = 100
+testRunsPerEpoche = 100
 networkConfig = [784, 600, 100, 10]
 nn = NeuralNetwork(networkConfig, learningRate, activation_function=TanhActivationFunction(),
                    momentum_factor=momentum_factor)
 
 # Do training and testing for n iterations
-# nn.loadResult()
+nn.loadResult()
 for i in range(iterations):
     executeEminstTraining(nn, epochePerIteration,
                           trainRunsPerEpoche)
